@@ -3,6 +3,7 @@ import copy
 
 BOARD_SIZE = 64
 ITER = 10
+OUTPUT_ALIVE = True
 
 # for testing
 BOARD = [
@@ -117,8 +118,17 @@ def performRounds(board: [[int]], no_rounds: int):
     boardTemp = board.copy()
     for i in range(0, no_rounds):
         boardTemp = performRound(boardTemp)
+        if OUTPUT_ALIVE:
+            print('Round {}: {} alive'.format(i, sumAlive(boardTemp)))
     return boardTemp
 
+def sumAlive(board: [[int]]):
+    alive = 0
+    for y in range(0, BOARD_SIZE):
+        for x in range(0, BOARD_SIZE):
+            if board[y][x] == 1:
+                alive += 1
+    return alive
 """
     OUTPUT
 """
