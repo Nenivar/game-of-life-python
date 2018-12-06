@@ -2,6 +2,9 @@ from enum import Enum
 import copy
 from pgm_reader import pgmToBoard
 
+import pygame, sys
+from pygame.locals import *
+
 # --------------------------------
 # CHANGE ME!
 #     |
@@ -9,7 +12,7 @@ from pgm_reader import pgmToBoard
 
 # use '16x16.pgm', '64x64.pgm'...'512x512.pgm'
 PGM_FILE = '16x16.txt'
-ITER = 1
+ITER = 5
 OUTPUT_ALIVE = True
 
 # --------------------------------
@@ -167,11 +170,30 @@ BOARD_SIZE = pgm[0]
 endBoard = pgm[1]
 endBoard = performRounds(endBoard, ITER)
 
-f = open('output.txt', 'w')
+""" f = open('output.txt', 'w')
 for y in range(0, BOARD_SIZE):
         for x in range(0, BOARD_SIZE):
             f.write("{},".format(endBoard[y][x]))
         f.write("\n")
 f.close()
 
-print('Output results in output.txt')
+print('Output results in output.txt') """
+
+# pygame stuff
+pygame.init()
+DISP_SIZE = 512
+display = pygame.display.set_mode((DISP_SIZE, DISP_SIZE))
+surfDraw = pygame.Surface((BOARD_SIZE, BOARD_SIZE))
+WHITE = (255, 255, 255, 255)
+BLACK = (0, 0, 0, 255)
+
+for y in range(0, BOARD_SIZE):
+    for x in range(0, BOARD_SIZE):
+        col = WHITE if endBoard[y][x] == 1 else BLACK
+        surfDraw.set_at((x, y), col)
+scale = int(DISP_SIZE / BOARD_SIZE) * BOARD_SIZE
+surfDraw = pygame.transform.scale(surfDraw, (scale, scale))
+display.blit(surfDraw, (0, 0))
+
+while True:
+    pygame.display.update()
