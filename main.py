@@ -8,7 +8,7 @@ from pgm_reader import pgmToBoard
 #     V
 
 # use '16x16.pgm', '64x64.pgm'...'512x512.pgm'
-PGM_FILE = '256x256.pgm'
+PGM_FILE = '16x16.txt'
 ITER = 1
 OUTPUT_ALIVE = True
 
