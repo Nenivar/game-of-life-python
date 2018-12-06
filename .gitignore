@@ -105,3 +105,4 @@ venv.bak/
 
 # output
 output.txt
+.vscode

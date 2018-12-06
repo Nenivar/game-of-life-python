@@ -1,11 +1,21 @@
 from enum import Enum
 import copy
+from pgm_reader import pgmToBoard
 
-BOARD_SIZE = 64
-ITER = 10
+# --------------------------------
+# CHANGE ME!
+#     |
+#     V
+
+# use '16x16.pgm', '64x64.pgm'...'512x512.pgm'
+PGM_FILE = '256x256.pgm'
+ITER = 1
 OUTPUT_ALIVE = True
 
+# --------------------------------
+
 # for testing
+BOARD_SIZE = 16
 BOARD = [
     [0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
     [0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
@@ -119,7 +129,7 @@ def performRounds(board: [[int]], no_rounds: int):
     for i in range(0, no_rounds):
         boardTemp = performRound(boardTemp)
         if OUTPUT_ALIVE:
-            print('Round {}: {} alive'.format(i, sumAlive(boardTemp)))
+            print('Round {}: {} alive'.format(i + 1, sumAlive(boardTemp)))
     return boardTemp
 
 def sumAlive(board: [[int]]):
@@ -151,7 +161,10 @@ tp = [
 #endBoard = placeInBoard(3, 5, tp, genBoard(16))
 #endBoard = performRounds(BOARD, ITER)
 
-endBoard = placeInBoard(3, 5, tp, genBoard(BOARD_SIZE))
+#endBoard = placeInBoard(3, 5, tp, genBoard(BOARD_SIZE))
+pgm = pgmToBoard(PGM_FILE)
+BOARD_SIZE = pgm[0]
+endBoard = pgm[1]
 endBoard = performRounds(endBoard, ITER)
 
 f = open('output.txt', 'w')
